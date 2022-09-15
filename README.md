@@ -71,7 +71,7 @@ for osm files) as this will be a shared volume.
 
 This docker-compose will allow you to run openpoiservice with `psql/postgis` image. This will allow you to deploy this project fast.
 
-**Important :** The database is not exposed, you won't be able to access it from outside the container. If you want to acces it simply adds those lines to the database definition inside the `docker-compose-with-postgis.yml`:
+**Important :** The database is not exposed, you won't be able to access it from outside the container. If you want to acces it simply adds those lines to the database definition inside the `docker-compose-with-postgis.yml` (most propably `docker-compose.yml`?):
 
 ```sh
 ports:
@@ -84,12 +84,13 @@ Don't forget to change the host name and port inside `ops_settings_docker.yml` b
 * Port default value : `5432`
 
 
-**Notes :** If openpoiservice can't connect to the database, it's probably because you don't have the same settings inside `ops_settings_docker.yml` and `docker-compose-with-postgis.yml`.
+**Notes :** If openpoiservice can't connect to the database, it's probably because you don't have the same settings inside `ops_settings_docker.yml` and `docker-compose.yml` (see above).
 
 Command to use to run all-in-one docker container
 
 ```sh
 docker-compose -f /path/to/docker-compose.yml up api -d
+docker-compose -f /path/to/docker-compose.yml up -d api  # at least on Win 10
 ```
 
 #### Only deploy openpoiservice
@@ -97,7 +98,7 @@ docker-compose -f /path/to/docker-compose.yml up api -d
 This will only run openpoiservice inside a container, meaning that you will need to handle the database yourself and connect it to this container.
 
 ```sh
-docker-compose -f /path/to/docker-compose-standalone.yml up api -d
+docker-compose -f /path/to/docker-compose-standalone.yml up -d api # see above
 ```
 
 #### After deploy
@@ -105,19 +106,20 @@ docker-compose -f /path/to/docker-compose-standalone.yml up api -d
 Once the container is built you can either, create the empty database:
 
 ```sh
-$ docker exec -it container_name /ops_venv/bin/python manage.py create-db
+$ docker exec -it container_name /ops_venv/bin/python manage.py create-db #???
+>  docker exec -it container_name /usr/local/bin/python manage.py create-db 
 ```
 
 Delete the database:
 
 ```sh
-$ docker exec -it container_name /ops_venv/bin/python manage.py drop-db
+$ docker exec -it container_name /usr/local/bin/python manage.py drop-db
 ```
 
 Or import the OSM data:
 
 ```sh
-$ docker exec -it container_name /ops_venv/bin/python manage.py import-data
+$ docker exec -it container_name /usr/local/bin/python manage.py import-data
 ```
 
 ### Init and Update DB with docker
