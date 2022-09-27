@@ -4,11 +4,15 @@ import sys
 import logging
 import unittest
 import json
+import click
 from json import JSONDecodeError
 
 from flask.cli import FlaskGroup
+from flask.cli import with_appcontext
 from openpoiservice.server import create_app, db
 from openpoiservice.server.db_import import parser
+from osm.OsmDownload import OsmDownload
+
 
 logging.basicConfig(
     level=logging.DEBUG if os.environ.get('OPS_DEBUG', False) else logging.INFO,
@@ -95,6 +99,18 @@ def import_data():
         json.dump(import_log, f, indent=4, sort_keys=True)
         f.close()
 
+#https://www.codedisciples.in/flask-commands.html
+@click.command(name="add_map")
+@click.argument("mapName")
+@with_appcontext
+def add_map(mapName):
+    logger.info(f"add_map called with : {mapName}")
+    osm_dir = os.getcwd() + "/osm"
+    os.chdir(osm_dir)
+    OsmDownload.getMap(mapName)
+    logger.info("End add_map")
+
+app.cli.add_command(add_map)
 
 if __name__ == '__main__':
     cli()
