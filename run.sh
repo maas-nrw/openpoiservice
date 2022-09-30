@@ -1,13 +1,13 @@
 #!/bin/sh
-if [[ ! -z "$UPDATE_DB" ]]; then
+if [[ -n "$UPDATE_DB" ]]; then
   echo "Updating POI database"
   python manage.py import-data
-elif [[ ! -z "$INIT_DB" ]]; then
+elif [[ -n "$INIT_DB" ]]; then
     echo "Initializing POI database"
     python manage.py drop-db
     python manage.py create-db
     python manage.py import-data
-elif [[ ! -z "$TESTING" ]]; then
+elif [[ -n "$TESTING" ]]; then
   echo "Running tests"
   export TESTING="True"
   python manage.py test
