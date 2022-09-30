@@ -122,6 +122,19 @@ Or import the OSM data:
 $ docker exec -it container_name /usr/local/bin/python manage.py import-data
 ```
 
+All OSM data in directory "osm" will be imported - new files can be downloaded from "https://download.geofabrik.de/" by using
+the add-map command, e.g. (given that "container_name" is the default "ops-api"):
+```sh
+$ docker exec -it ops-api /usr/local/bin/python manage.py add-map "europe/germany/nordrhein-westfalen" 
+```
+to download NRW or
+
+```sh
+$ docker exec -it ops-api /usr/local/bin/python manage.py add-map "europe/germany/nordrhein-westfalen/koeln-regbez"
+```
+to download only Köln. 
+
+
 ### Init and Update DB with docker
 You can initialize POI database with docker service init
 
@@ -166,6 +179,18 @@ $ python manage.py create-db
 ```sh
 $ python manage.py drop-db
 ```
+
+### Download OSM data
+
+```sh
+python manage.py add-map "europe/germany/nordrhein-westfalen" 
+```
+to download a region like NRW or
+
+```sh
+python manage.py add-map "europe/germany/nordrhein-westfalen/koeln-regbez"
+```
+to download a smaller part, in this case "Köln".
 
 ### Parse and import OSM data
 
