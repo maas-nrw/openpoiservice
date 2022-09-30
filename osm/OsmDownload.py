@@ -22,6 +22,6 @@ class OsmDownload():
         print('Starting download of {}'.format(download_link))
 
         res = subprocess.call(["wget", "-q", "-N", download_link])
-        print('End download with {}', res)
+        print(f'End download with {res}')
 
 

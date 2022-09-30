@@ -100,17 +100,16 @@ def import_data():
         f.close()
 
 #https://www.codedisciples.in/flask-commands.html
-@click.command(name="add_map")
-@click.argument("mapName")
-@with_appcontext
-def add_map(mapName):
-    logger.info(f"add_map called with : {mapName}")
+#https://flask.palletsprojects.com/en/2.0.x/cli/
+@cli.command()
+@click.argument('mapname')  #arg name must be lower case!
+def add_map(mapname):
+    """Downloads a map from geofarik.de. mapname must be like '/europe/germany/nordrhein-westfalen'. '-latest.osm.pdf' gets appended automatically."""
+    logger.info(f"add_map called with : {mapname}")
     osm_dir = os.getcwd() + "/osm"
     os.chdir(osm_dir)
-    OsmDownload.getMap(mapName)
+    OsmDownload().getMap(mapname)
     logger.info("End add_map")
-
-app.cli.add_command(add_map)
 
 if __name__ == '__main__':
     cli()
