@@ -108,6 +108,7 @@ class QueryBuilder(object):
                 .group_by(bbox_query.c.osm_id) \
                 .group_by(bbox_query.c.osm_type) \
                 .group_by(bbox_query.c.geom) \
+                .limit(params['limit']) \
 
             # response as geojson feature collection
             return self.generate_geojson_features(pois_query, params['limit'])
@@ -257,8 +258,8 @@ class QueryBuilder(object):
             geojson_features.append(geojson_feature)
 
             # limit reached
-            if q_idx == limit - 2:
-                break
+#            if q_idx == limit - 1:
+#                break
 
         feature_collection = geojson.FeatureCollection(geojson_features, bbox=MultiPoint(lat_lngs).bounds)
 
