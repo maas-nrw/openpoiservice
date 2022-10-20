@@ -221,7 +221,7 @@ $ export TESTING="True" && python manage.py test
 
 ### Category IDs and their configuration
 
-`openpoiservice/server/categories/categories.yml` is a list of (**note:** not all!) OpenStreetMap tags with arbitrary category IDs. 
+`openpoiservice/server/categories/categories.yml` is a list of (**note:** not all!) OpenStreetMap tags with arbitrary category IDs. (see [Hint for changing name or location of config files](#changing-the-name-or-location-of-config-files) for further information on how the path can be changed).
 If you keep the structure as follows, you can manipulate this list as you wish.
  
  ```yaml
@@ -250,7 +250,7 @@ If you keep the structure as follows, you can manipulate this list as you wish.
 
 `column_mappings` in `openpoiservice/server/ops_settings.yml` controls which OSM information will be considered in the database and also if 
 these may be queried by the user via the API , e.g.
-
+(see [Hint for changing name or location of config files](#changing-the-name-or-location-of-config-files) for further information on how the path can be changed).
 ```yaml
 wheelchair:
 
@@ -263,6 +263,16 @@ For instance means that the OpenStreetMap tag [wheelchair](https://wiki.openstre
 during import and save to the database. A user may then add a list of common values in the filters object `wheelchair: ['yes', 'dedicated', ...]` 
 which correspond to the OSM common values of the tag itself, e.g. 
 [https://wiki.openstreetmap.org/wiki/Key:wheelchair](https://wiki.openstreetmap.org/wiki/Key:wheelchair).
+
+### Changing the name or location of config files
+Default path for configuration is openpoiservice/server/categories for categories, openpoiservice/server for ops_settings
+
+If you want to unify / change the location of your config or change the name of the categories - file or OPS-Settings, you can use the (optional) environment variables
+```
+export POISERVICE_CONFIG_BASEDIR=<(Absolute) Path to base directory your config is stored>. 
+export POISERVICE_CONFIG_CATEGORIES=<Name or path (relative to folder basedir) of categories file>
+export POISERVICE_CONFIG_OPS_SETTINGS=<Name or path (relative to folder basedir) of ops_settings file>
+```
 
 ### API Documentation
 
