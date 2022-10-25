@@ -4,12 +4,13 @@ with open('requirements.txt') as f:
     r = f.read().splitlines()
     # Hotfix from MaaS NRW - Project: setup.py does not process http:// - Git-References properly, which is used to include
     # imposm-parser - this has to be installed manually in case of using the packaged version
-    requirements = [x for x in r if x.find("//")>=0]
+    requirements = [x for x in r if x.find("//") < 0]
 
 
 def readme():
     with open('README.md') as f:
         return f.read()
+
 
 setuptools.setup(
     name="openpoiservice",
