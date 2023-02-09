@@ -1,5 +1,6 @@
-ARG python-version=3.9
-FROM python:${python-version}-slim
+ARG PYTHON_VERSION=3.9
+ARG PYTHON_IMAGE_VERSION="-slim"
+FROM python:$PYTHON_VERSION$PYTHON_IMAGE_VERSION
 LABEL org.opencontainers.image.authors="Timothy Ellersiek <timothy@openrouteservice.org>"
 
 # protobuf is required to parse osm files.
