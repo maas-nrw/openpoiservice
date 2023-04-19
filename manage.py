@@ -11,7 +11,7 @@ from flask.cli import FlaskGroup
 
 from openpoiservice.server import create_app, db
 from openpoiservice.server.db_import import parser
-from osm.OsmDownload import OsmDownload
+from osm.FileDownloader import FileDownloader
 
 logging.basicConfig(
     level=logging.DEBUG if os.environ.get('OPS_DEBUG', False) else logging.INFO,
@@ -107,7 +107,7 @@ def add_map(mapname):
     logger.info(f"add_map called with : {mapname}")
     osm_dir = os.getcwd() + "/osm"
     os.chdir(osm_dir)
-    OsmDownload().get_map(mapname)
+    FileDownloader().get_map(mapname)
     logger.info("End add_map")
 
 if __name__ == '__main__':
