@@ -1,17 +1,26 @@
 import setuptools
 
 with open('requirements.txt') as f:
-    requirements = f.read().splitlines()
+    r = f.read().splitlines()
+    # Hotfix from MaaS NRW - Project: setup.py does not process http:// - Git-References properly, which is used to include
+    # imposm-parser - this has to be installed manually in case of using the packaged version
+    requirements = [x for x in r if x.find("//") < 0]
+
+
+def readme():
+    with open('README.md') as f:
+        return f.read()
+
 
 setuptools.setup(
     name="openpoiservice",
-    version="0.1.7",
+    version="0.1.7-maas-nrw",
     install_requires=requirements,
     author="Timothy Ellersiek",
     author_email="timothy@openrouteservice.org",
     description="POI service consuming OpenStreetMap data",
     keywords='OSM ORS openrouteservice OpenStreetMap POI points of interest',
-    long_description=long_description,
+    long_description=readme(),
     long_description_content_type="text/markdown",
     url="https://github.com/GIScience/openpoiservice",
     packages=setuptools.find_packages(),

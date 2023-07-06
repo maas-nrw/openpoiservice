@@ -16,8 +16,8 @@ logger = logging.getLogger(__name__)
 # instantiate the extensions
 
 """load custom settings for openpoiservice"""
-basedir = os.path.abspath(os.path.dirname(__file__))
-ops_settings = yaml.safe_load(open(os.path.join(basedir, 'ops_settings.yml')))
+basedir = os.path.abspath(os.environ.get("POISERVICE_CONFIG_BASEDIR", os.path.dirname(__file__)))
+ops_settings = yaml.safe_load(open(os.path.join(basedir, os.environ.get('POISERVICE_CONFIG_OPS_SETTINGS','ops_settings.yml'))))
 
 if "TESTING" in os.environ:
     ops_settings['provider_parameters']['table_name'] = ops_settings['provider_parameters']['table_name'] + '_test'
@@ -25,7 +25,7 @@ if "TESTING" in os.environ:
 db = SQLAlchemy()
 
 # load categories
-categories_tools = CategoryTools('categories.yml')
+categories_tools = CategoryTools(os.environ.get("POISERVICE_CONFIG_CATEGORIES", 'categories.yml'))
 
 
 def create_app(script_info=None):

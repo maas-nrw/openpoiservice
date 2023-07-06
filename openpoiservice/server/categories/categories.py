@@ -8,7 +8,7 @@ import copy
 class CategoryTools(object):
 
     def __init__(self, categories_file):
-        self.basedir = os.path.abspath(os.path.dirname(__file__))
+        self.basedir = basedir = os.path.abspath(os.environ.get("POISERVICE_CONFIG_BASEDIR", os.path.dirname(__file__)))
         self.categories_object = yaml.safe_load(open(os.path.join(self.basedir, categories_file)))
         self.category_group_ids = []
         self.category_ids = []
