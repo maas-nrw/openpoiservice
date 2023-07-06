@@ -22,6 +22,7 @@ WORKDIR /deploy/app
 COPY requirements.txt ./
 RUN pip3 install -r /deploy/app/requirements.txt
 COPY gunicorn_config.py run.sh manage.py ./
+COPY osm ./osm
 COPY openpoiservice ./openpoiservice
 
 EXPOSE 5000

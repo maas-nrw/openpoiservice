@@ -1,4 +1,4 @@
 .git
-osm/**/*
+osm/**/*.pbf
 osm_1/**/*
 osm_2/**/*
